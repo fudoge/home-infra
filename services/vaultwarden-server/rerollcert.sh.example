@@ -1,0 +1,26 @@
+#! /bin/bash
+
+set -euo pipefail
+
+BIN="/usr/local/bin"
+BASE_DIR="/Users/<you>/vaultwarden-server"
+CERT_DIR="${BASE_DIR}/caddy/certs"
+BASE_URL="<url>"
+CERT="${BASE_URL}.crt"
+KEY="${BASE_URL}.key"
+
+TMPDIR=$(mktemp -d)
+
+if ! tailscale cert --cert-file "${TMPDIR}/${CERT}" --key-file "${TMPDIR}/${KEY}" "${BASE_URL}"; then
+    echo "tailscale cert failed"
+    exit 1
+fi
+
+mv "${TMPDIR}/${CERT}" "${CERT_DIR}/${CERT}"
+mv "${TMPDIR}/${KEY}" "${CERT_DIR}/${KEY}"
+rm -rf "${TMPDIR}"
+
+if ! docker exec caddy caddy reload --config /etc/caddy/Caddyfile --force; then
+    echo "Caddy reload failed"
+    exit 1
+fi
