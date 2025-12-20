@@ -1,5 +1,7 @@
 # Cloudflare DDNS Agent
 
+About SDK: [https://developers.cloudflare.com/api/go/resources/dns/](https://developers.cloudflare.com/api/go/resources/dns/)
+
 ## Build
 ```bash
 go build -o ddns-agent main.go
