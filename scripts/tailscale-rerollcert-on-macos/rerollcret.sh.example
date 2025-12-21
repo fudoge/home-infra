@@ -1,9 +1,10 @@
+
 #! /bin/bash
 
 set -euo pipefail
 
 BIN="/usr/local/bin"
-BASE_DIR="/Users/<you>/vaultwarden-server"
+BASE_DIR="/Users/<you>/home-infra/services/vaultwarden-server" # or where caddy docker-compose exists 
 CERT_DIR="${BASE_DIR}/caddy/certs"
 BASE_URL="<url>"
 CERT="${BASE_URL}.crt"

@@ -6,5 +6,4 @@ grafana-data
 prometheus-data
 .env
 backup
-autobackup.sh
 rerollcert.sh
