@@ -1,11 +1,6 @@
-terraform {
-  backend "s3" {
-  }
-}
-
 // S3 bucket
 resource "aws_s3_bucket" "vaultwarden_backup" {
-  bucket = var.backup_bucket_name
+  bucket = var.vw_backup_bucket_name
 
   tags = {
     Name = "vaultwarden-backup-bucket"
