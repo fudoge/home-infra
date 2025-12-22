@@ -124,3 +124,13 @@ Check:
 ```bash
 launchctl list | grep ddns
 ```
+
+In mac, use newsyslog to rotate logs
+In `/etc/newsyslog.d/ddns.conf`: write down like below:
+```conf
+# logfilename                   mode    count   size    when    flags
+/usr/local/var/log/ddns.log     644     5       1000    *   J
+/usr/local/var/log/ddns.err     644     5       1000    *   J
+```
+
+
