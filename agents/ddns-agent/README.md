@@ -12,8 +12,8 @@ sudo mv ddns-agent /usr/local/bin/ddns-agent
 ## Environment Variables
 ```plaintext
 CF_API_TOKEN        Cloudflare API token (DNS_READ, DNS_WRITE requried)
-CF_ZONE_ID          Cloudflare zone ID
-DDNS_RECORD_NAME    DNS record name to update (e.g. home.example.com)
+ZONE_ID             Cloudflare zone ID
+DOMAIN_NAME         DNS record name to update (e.g. home.example.com)
 ```
 
 
@@ -29,8 +29,8 @@ Wants=network-online.target
 Type=oneshot
 ExecStart=/usr/local/bin/ddns-agent
 Environment=CF_API_TOKEN=xxxx
-Environment=CF_ZONE_ID=xxxx
-Environment=DDNS_RECORD_NAME=xxxx
+Environment=ZONE_ID=xxxx
+Environment=DOMAIN_NAME=xxxx
 
 NoNewPrivileges=true
 PrivateTmp=true
@@ -92,9 +92,9 @@ systemctl list-timers | grep ddns
     <dict>
         <key>CF_API_TOKEN</key>
         <string>YOUR_CF_API_TOKEN</string>
-        <key>CF_ZONE_ID</key>
+        <key>ZONE_ID</key>
         <string>YOUR_CF_ZONE_ID</string>
-        <key>DDNS_RECORD_NAME</key>
+        <key>DOMAIN_NAME</key>
         <string>YOUR_DDNS_RECORD_NAME</string>
     </dict>
 
