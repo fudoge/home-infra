@@ -7,7 +7,7 @@ locals {
     },
     "mc-backup" = {
       bucket_name                = "riveroverflow-minecraft-backup"
-      transition_days_to_archive = 2
+      transition_days_to_archive = 15
       expiration_days            = 180
     }
   }
