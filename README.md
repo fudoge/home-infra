@@ -27,4 +27,4 @@ For more information, visit [here](https://riveroverflow.pages.dev/p/%EC%A7%91%E
 
 ## Proxmox Homelab
 
-![Topology](homelab-topology.png)
+![Topology](homelab-network.png)
