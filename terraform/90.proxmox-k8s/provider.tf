@@ -1,12 +1,19 @@
 terraform {
   required_providers {
     proxmox = {
-      source  = "Telmate/proxmox"
-      version = "3.0.2-rc07"
+      source  = "bpg/proxmox"
+      version = "0.93.0"
     }
   }
 }
 
 provider "proxmox" {
-  # Configuration options
+  endpoint  = "https://192.168.0.3:8006"
+  api_token = var.proxmox_api_token
+  insecure  = true
+
+  ssh {
+    agent    = true
+    username = "root"
+  }
 }
