@@ -1,3 +1,7 @@
+variable "template_id" {
+  type = number
+}
+
 variable "template_name" {
   type = string
 }

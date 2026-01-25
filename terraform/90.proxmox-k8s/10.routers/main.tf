@@ -27,7 +27,7 @@ module "frrouter" {
   datastore_id = "local"
   networks = [
     { bridge = "vmbr0", ip = "dhcp", gw = "" },
-    { bridge = "vmbr1", ip = var.frr_ip, gw = "" }
+    { bridge = "vmbr1", ip = "192.168.10.1/24", gw = "" }
   ]
   ssh_keys = local.ssh_keys
   cloud_init_data = templatefile("${path.root}/../98.cloud-init/frr-cloud-config.yaml", {

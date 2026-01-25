@@ -1,6 +1,7 @@
 resource "proxmox_virtual_environment_vm" "template" {
   name      = var.template_name
   node_name = var.ve_node_name
+  vm_id     = var.template_id
 
   template = true
   started  = false
