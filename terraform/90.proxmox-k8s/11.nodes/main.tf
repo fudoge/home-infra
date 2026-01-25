@@ -11,8 +11,7 @@ locals {
       cpu_cores   = 4
       memory      = 4096
       networks = [
-        { bridge = "vmbr0", ip = "dhcp", gw = "" },
-        { bridge = "vmbr1", ip = "192.168.10.10/24", gw = "" }
+        { bridge = "vmbr1", ip = "192.168.10.10/24", gw = "192.168.10.1" }
       ]
     }
     "worker-1" : {
@@ -22,8 +21,7 @@ locals {
       cpu_cores   = 4
       memory      = 4096
       networks = [
-        { bridge = "vmbr0", ip = "dhcp", gw = "" },
-        { bridge = "vmbr1", ip = "192.168.10.100/24", gw = "" }
+        { bridge = "vmbr1", ip = "192.168.10.100/24", gw = "192.168.10.1" }
       ]
     }
     "worker-2" : {
@@ -33,46 +31,11 @@ locals {
       cpu_cores   = 4
       memory      = 4096
       networks = [
-        { bridge = "vmbr0", ip = "dhcp", gw = "" },
-        { bridge = "vmbr1", ip = "192.168.10.101/24", gw = "" }
+        { bridge = "vmbr1", ip = "192.168.10.101/24", gw = "192.168.10.1" }
       ]
     }
   }
 }
-
-resource "proxmox_virtual_environment_network_linux_bridge" "vmbr1" {
-  node_name = "pve-01"
-  name      = "vmbr1"
-
-  address = "192.168.10.1/24"
-  comment = "In-proxmox network"
-}
-
-module "ubuntu_template" {
-  source        = "./modules/template"
-  template_name = "ubuntu-template"
-  ve_node_name  = "pve-01"
-  datastore_id  = "local"
-}
-
-module "frrouter" {
-  source       = "./modules/vm"
-  node_name    = "pve-01"
-  vm_name      = "frr-router"
-  vm_id        = 200
-  template_id  = module.ubuntu_template.id
-  cpu_cores    = 2
-  memory       = 2048
-  username     = "ubuntu"
-  password     = var.password
-  datastore_id = "local"
-  networks = [
-    { bridge = "vmbr0", ip = "dhcp", gw = "" },
-    { bridge = "vmbr1", ip = "192.168.10.2/24", gw = "" }
-  ]
-  ssh_keys = local.ssh_keys
-}
-
 
 module "k8s-node" {
   source       = "./modules/vm"

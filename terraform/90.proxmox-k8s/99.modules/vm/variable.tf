@@ -36,6 +36,6 @@ variable "ssh_keys" {
 variable "username" {
   type = string
 }
-variable "password" {
+variable "cloud_init_data" {
   type = string
 }

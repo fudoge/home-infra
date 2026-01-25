@@ -30,7 +30,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
     user_account {
       username = var.username
       keys     = var.ssh_keys
-      password = var.password
     }
 
     dynamic "ip_config" {
@@ -51,11 +50,7 @@ resource "proxmox_virtual_environment_file" "cloud_config" {
   content_type = "snippets"
 
   source_raw {
-    data = templatefile("${path.module}/cloud-config.yaml", {
-      hostname = var.vm_name
-      username = var.username
-      ssh_keys = var.ssh_keys
-    })
+    data      = var.cloud_init_data
     file_name = "${var.vm_name}.cloud-config.yaml"
   }
 
