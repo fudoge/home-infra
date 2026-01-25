@@ -26,7 +26,7 @@ module "frrouter" {
   username     = local.username
   datastore_id = "local"
   networks = [
-    { bridge = "vmbr0", ip = "dhcp", gw = "" },
+    { bridge = "vmbr0", ip = "192.168.0.8/24", gw = "192.168.0.1" },
     { bridge = "vmbr1", ip = "192.168.10.1/24", gw = "" }
   ]
   ssh_keys = local.ssh_keys
