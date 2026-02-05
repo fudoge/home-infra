@@ -14,3 +14,7 @@ variable "datastore_id" {
   type    = string
   default = "local"
 }
+
+variable "image_url" {
+  type = string
+}

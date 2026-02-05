@@ -6,6 +6,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
     vm_id = var.template_id
   }
 
+  # True when qemu-guest-agent is ready
   agent {
     enabled = true
   }
@@ -13,6 +14,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
   cpu {
     cores = var.cpu_cores
   }
+
   memory {
     dedicated = var.memory
   }
@@ -53,6 +55,4 @@ resource "proxmox_virtual_environment_file" "cloud_config" {
     data      = var.cloud_init_data
     file_name = "${var.vm_name}.cloud-config.yaml"
   }
-
-
 }
