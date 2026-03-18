@@ -24,7 +24,7 @@ locals {
     "cp-1" : {
       vm_name   = "cp-1"
       vm_id     = "1010",
-      cpu_cores = 4
+      cpu_cores = 2
       memory    = 4096
       networks = [
         { bridge = "vmbr1", ip = "192.168.10.10/24", gw = local.frroute_ip }
@@ -33,7 +33,7 @@ locals {
     "worker-1" : {
       vm_name   = "worker-1"
       vm_id     = "1100",
-      cpu_cores = 4
+      cpu_cores = 2
       memory    = 4096
       networks = [
         { bridge = "vmbr1", ip = "192.168.10.100/24", gw = local.frroute_ip }
@@ -42,7 +42,7 @@ locals {
     "worker-2" : {
       vm_name   = "worker-2"
       vm_id     = "1101",
-      cpu_cores = 4
+      cpu_cores = 2
       memory    = 4096
       networks = [
         { bridge = "vmbr1", ip = "192.168.10.101/24", gw = local.frroute_ip }
