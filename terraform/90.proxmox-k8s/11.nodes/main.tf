@@ -48,6 +48,26 @@ locals {
         { bridge = "vmbr1", ip = "192.168.10.101/24", gw = local.frroute_ip }
       ]
     }
+
+    "postgres" : {
+      vm_name   = "postgres"
+      vm_id     = "1200",
+      cpu_cores = 4
+      memory    = 16 * 1024
+      networks = [
+        { bridge = "vmbr1", ip = "192.168.10.200/24", gw = local.frroute_ip }
+      ]
+    }
+
+    "valkey" : {
+      vm_name   = "valkey"
+      vm_id     = "1201",
+      cpu_cores = 2
+      memory    = 2048
+      networks = [
+        { bridge = "vmbr1", ip = "192.168.10.201/24", gw = local.frroute_ip }
+      ]
+    }
   }
 }
 
