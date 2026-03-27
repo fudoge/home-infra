@@ -14,3 +14,7 @@ variable "mc_target" {
   description = "Minecraft server srv target"
   type        = string
 }
+variable "gh_username" {
+  description = "GitHub username"
+  type        = string
+}

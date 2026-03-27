@@ -26,3 +26,13 @@ resource "cloudflare_dns_record" "minecraft_dns_srv_record" {
     target   = var.mc_target
   }
 }
+
+resource "cloudflare_dns_record" "blog" {
+  zone_id = var.zone_id
+  name    = "blog"
+  content = "${var.gh_username}.github.io"
+  ttl     = 1
+  type    = "CNAME"
+  proxied = false
+  comment = "Hugo blog Custom Domain"
+}
