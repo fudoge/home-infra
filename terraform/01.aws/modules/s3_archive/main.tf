@@ -47,3 +47,66 @@ resource "aws_s3_bucket_lifecycle_configuration" "backup_bucket_lifecycle" {
   }
 }
 
+data "aws_iam_policy_document" "backup_bucket_policy" {
+  statement {
+    sid    = "AllowBackupUserObjectRW"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = var.backup_users
+    }
+
+    actions = [
+      "s3:GetObject",
+      "s3:PutObject",
+      "s3:AbortMultipartUpload",
+      "s3:ListMultipartUploadParts",
+    ]
+
+    resources = [
+      "${aws_s3_bucket.backup_bucket.arn}/*"
+    ]
+  }
+
+  statement {
+    sid    = "AllowChaewoonListBucket"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::647502392199:user/chaewoon"]
+    }
+
+    actions = [
+      "s3:ListBucket",
+    ]
+
+    resources = [
+      aws_s3_bucket.backup_bucket.arn
+    ]
+  }
+
+  statement {
+    sid    = "AllowChaewoonGetObject"
+    effect = "Allow"
+
+    principals {
+      type        = "AWS"
+      identifiers = ["arn:aws:iam::647502392199:user/chaewoon"]
+    }
+
+    actions = [
+      "s3:GetObject",
+    ]
+
+    resources = [
+      "${aws_s3_bucket.backup_bucket.arn}/*"
+    ]
+  }
+}
+
+resource "aws_s3_bucket_policy" "backup_bucket_policy" {
+  bucket = aws_s3_bucket.backup_bucket.id
+  policy = data.aws_iam_policy_document.backup_bucket_policy.json
+}

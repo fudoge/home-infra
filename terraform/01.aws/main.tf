@@ -30,6 +30,7 @@ module "backup_s3_buckets" {
   backup_bucket_name         = each.value.bucket_name
   transition_days_to_archive = each.value.transition_days_to_archive
   expiration_days            = each.value.expiration_days
+  backup_users               = [aws_iam_user.backup_usr.arn]
 }
 
 // SNS
@@ -80,7 +81,7 @@ data "aws_iam_policy_document" "backup_min" {
       "s3:GetObject",
       "s3:PutObject",
       "s3:AbortMultipartUpload",
-      "s3:ListMultiPartUploadParts",
+      "s3:ListMultipartUploadParts",
     ]
     resources = local.backup_bucket_resources
   }
