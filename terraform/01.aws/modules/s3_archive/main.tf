@@ -49,7 +49,7 @@ resource "aws_s3_bucket_lifecycle_configuration" "backup_bucket_lifecycle" {
 
 data "aws_iam_policy_document" "backup_bucket_policy" {
   statement {
-    sid    = "AllowBackupUserObjectRW"
+    sid    = "AllowBackupUsersObjectRW"
     effect = "Allow"
 
     principals {
@@ -70,12 +70,32 @@ data "aws_iam_policy_document" "backup_bucket_policy" {
   }
 
   statement {
-    sid    = "AllowChaewoonListBucket"
+    sid    = "AllowReadonlyUsersRead"
     effect = "Allow"
 
     principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::647502392199:user/chaewoon"]
+      identifiers = var.readonly_users
+    }
+
+    actions = [
+      "s3:ListBucket",
+      "s3:GetObject",
+    ]
+
+    resources = [
+      aws_s3_bucket.backup_bucket.arn,
+      "${aws_s3_bucket.backup_bucket.arn}/*",
+    ]
+  }
+
+  statement {
+    sid    = "DenyOthersListBucket"
+    effect = "Deny"
+
+    not_principals {
+      type        = "AWS"
+      identifiers = concat(var.backup_users, var.readonly_users)
     }
 
     actions = [
@@ -88,16 +108,19 @@ data "aws_iam_policy_document" "backup_bucket_policy" {
   }
 
   statement {
-    sid    = "AllowChaewoonGetObject"
-    effect = "Allow"
+    sid    = "DenyOthersObjectAccess"
+    effect = "Deny"
 
-    principals {
+    not_principals {
       type        = "AWS"
-      identifiers = ["arn:aws:iam::647502392199:user/chaewoon"]
+      identifiers = concat(var.backup_users, var.readonly_users)
     }
 
     actions = [
       "s3:GetObject",
+      "s3:PutObject",
+      "s3:AbortMultipartUpload",
+      "s3:ListMultipartUploadParts",
     ]
 
     resources = [

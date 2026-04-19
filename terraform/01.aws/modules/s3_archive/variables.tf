@@ -11,6 +11,10 @@ variable "expiration_days" {
   type        = number
 }
 variable "backup_users" {
-  description = "List of Backup Users to permit Put Object"
+  description = "IAM principals allowed to read/write backup objects"
+  type        = list(string)
+}
+variable "readonly_users" {
+  description = "IAM principals allowed to list/get backup objects"
   type        = list(string)
 }

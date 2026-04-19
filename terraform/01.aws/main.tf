@@ -31,6 +31,7 @@ module "backup_s3_buckets" {
   transition_days_to_archive = each.value.transition_days_to_archive
   expiration_days            = each.value.expiration_days
   backup_users               = [aws_iam_user.backup_usr.arn]
+  readonly_users             = ["arn:aws:iam::647502392199:user/chaewoon"]
 }
 
 // SNS
