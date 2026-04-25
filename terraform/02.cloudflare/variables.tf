@@ -2,6 +2,14 @@ variable "cloudflare_api_token" {
   description = "Cloudflare API Token"
   type        = string
 }
+variable "cloudflare_r2_api_token" {
+  description = "Cloudflare API Token"
+  type        = string
+}
+variable "account_id" {
+  description = "Account ID"
+  type        = string
+}
 variable "zone_id" {
   description = "DNS Zone ID"
   type        = string
