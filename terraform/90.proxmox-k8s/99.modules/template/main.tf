@@ -26,7 +26,7 @@ resource "proxmox_virtual_environment_vm" "template" {
 
   disk {
     datastore_id = var.datastore_id
-    file_id      = proxmox_virtual_environment_download_file.cloud_image.id # file ID for a disk image
+    file_id      = proxmox_download_file.cloud_image.id # file ID for a disk image
     interface    = "virtio0"
     iothread     = true
     discard      = "on" # pass discard/trim requests to the underlying storage
@@ -49,9 +49,11 @@ resource "proxmox_virtual_environment_vm" "template" {
 }
 
 # Download Cloud image
-resource "proxmox_virtual_environment_download_file" "cloud_image" {
+resource "proxmox_download_file" "cloud_image" {
   content_type = "iso"
   datastore_id = var.datastore_id
   node_name    = var.ve_node_name
   url          = var.image_url
+
+  upload_timeout = 3600
 }

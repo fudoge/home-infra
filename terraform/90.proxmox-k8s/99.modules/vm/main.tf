@@ -8,7 +8,7 @@ resource "proxmox_virtual_environment_vm" "vm" {
 
   # True when qemu-guest-agent is ready
   agent {
-    enabled = true
+    enabled = false
   }
 
   cpu {
@@ -29,10 +29,6 @@ resource "proxmox_virtual_environment_vm" "vm" {
   initialization {
     datastore_id      = var.datastore_id
     user_data_file_id = proxmox_virtual_environment_file.cloud_config.id
-    user_account {
-      username = var.username
-      keys     = var.ssh_keys
-    }
 
     dynamic "ip_config" {
       for_each = var.networks

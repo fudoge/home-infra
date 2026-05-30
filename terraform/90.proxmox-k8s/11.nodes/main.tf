@@ -17,7 +17,7 @@ locals {
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA+XpFW8WRZcu3noIrPVidAyADg52sv/tjlV3OZ+zHHN chaewoon@spaceship"
   ]
 
-  ubuntu_template_id = data.terraform_remote_state.ubuntu_26_04_template.outputs.id
+  ubuntu_template_id = data.terraform_remote_state.ubuntu_template.outputs.ubuntu_template_id["ubuntu_26_04"]
   frroute_ip         = data.terraform_remote_state.frr.outputs.frr_ip[2][0]
 
   k8s_nodes = {
