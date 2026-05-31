@@ -10,9 +10,11 @@ resource "proxmox_virtual_environment_vm" "vm" {
   agent {
     enabled = false
   }
+  stop_on_destroy = true
 
   cpu {
     cores = var.cpu_cores
+    type  = "x86-64-v2-AES"
   }
 
   memory {

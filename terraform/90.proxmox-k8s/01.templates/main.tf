@@ -8,7 +8,7 @@ locals {
     ubuntu_26_04 = {
       template_id   = 101
       template_name = "ubuntu-26-04"
-      image_url     = "https://cloud-images.ubuntu.com/resolute/20260520/resolute-server-cloudimg-arm64.img"
+      image_url     = "https://cloud-images.ubuntu.com/resolute/20260520/resolute-server-cloudimg-amd64.img"
     }
   }
 }
