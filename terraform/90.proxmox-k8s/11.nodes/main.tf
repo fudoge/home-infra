@@ -33,8 +33,8 @@ locals {
     "worker-1" : {
       vm_name   = "worker-1"
       vm_id     = "1100",
-      cpu_cores = 2
-      memory    = 4096
+      cpu_cores = 4
+      memory    = 8192
       networks = [
         { bridge = "vmbr1", ip = "192.168.10.100/24", gw = local.frroute_ip }
       ]
