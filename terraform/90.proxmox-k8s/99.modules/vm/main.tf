@@ -21,6 +21,14 @@ resource "proxmox_virtual_environment_vm" "vm" {
     dedicated = var.memory
   }
 
+  disk {
+    datastore_id = var.datastore_id
+    interface    = "virtio0"
+    iothread     = true
+    discard      = "on"
+    size         = var.disk_size
+  }
+
   dynamic "network_device" {
     for_each = var.networks
     content {

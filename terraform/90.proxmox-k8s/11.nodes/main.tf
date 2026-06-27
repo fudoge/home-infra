@@ -26,6 +26,7 @@ locals {
       vm_id     = "1010",
       cpu_cores = 2
       memory    = 4096
+      disk_size = 100
       networks = [
         { bridge = "vmbr1", ip = "192.168.10.10/24", gw = local.frroute_ip }
       ]
@@ -35,6 +36,7 @@ locals {
       vm_id     = "1100",
       cpu_cores = 4
       memory    = 8192
+      disk_size = 100
       networks = [
         { bridge = "vmbr1", ip = "192.168.10.100/24", gw = local.frroute_ip }
       ]
@@ -44,6 +46,7 @@ locals {
       vm_id     = "1101",
       cpu_cores = 4
       memory    = 8192
+      disk_size = 100
       networks = [
         { bridge = "vmbr1", ip = "192.168.10.101/24", gw = local.frroute_ip }
       ]
@@ -60,6 +63,7 @@ module "k8s-node" {
   template_id  = local.ubuntu_template_id
   cpu_cores    = each.value.cpu_cores
   memory       = each.value.memory
+  disk_size    = each.value.disk_size
   username     = "ubuntu"
   datastore_id = "local"
   networks     = each.value.networks
