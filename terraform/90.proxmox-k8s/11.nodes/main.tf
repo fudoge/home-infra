@@ -17,8 +17,9 @@ locals {
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA+XpFW8WRZcu3noIrPVidAyADg52sv/tjlV3OZ+zHHN chaewoon@spaceship"
   ]
 
-  ubuntu_template_id = data.terraform_remote_state.ubuntu_template.outputs.ubuntu_template_id["ubuntu_26_04"]
-  frroute_ip         = data.terraform_remote_state.frr.outputs.frr_ip[2][0]
+  ubuntu_template_id_26_04 = data.terraform_remote_state.ubuntu_template.outputs.ubuntu_template_id["ubuntu_26_04"]
+  ubuntu_template_id_24_04 = data.terraform_remote_state.ubuntu_template.outputs.ubuntu_template_id["ubuntu_24_04"]
+  frroute_ip               = data.terraform_remote_state.frr.outputs.frr_ip[2][0]
 
   k8s_nodes = {
     "cp-1" : {
@@ -60,7 +61,7 @@ module "k8s-node" {
   for_each     = local.k8s_nodes
   vm_name      = each.value.vm_name
   vm_id        = each.value.vm_id
-  template_id  = local.ubuntu_template_id
+  template_id  = local.ubuntu_template_id_24_04
   cpu_cores    = each.value.cpu_cores
   memory       = each.value.memory
   disk_size    = each.value.disk_size
