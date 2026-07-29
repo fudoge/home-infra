@@ -14,6 +14,10 @@ variable "zone_id" {
   description = "DNS Zone ID"
   type        = string
 }
+variable "domain" {
+  description = "DNS domain"
+  type        = string
+}
 variable "mc_srv_name" {
   description = "Minecraft server srv record name"
   type        = string

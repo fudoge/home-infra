@@ -40,8 +40,38 @@ resource "cloudflare_dns_record" "blog" {
   content  = "${var.gh_username}.github.io"
   ttl      = 1
   type     = "CNAME"
-  proxied  = false
+  proxied  = true
   comment  = "Hugo blog Custom Domain"
+}
+
+resource "cloudflare_ruleset" "blog_redirect" {
+  zone_id     = var.zone_id
+  name        = "blog redirects"
+  description = "Single blog redirects managed by Terraform"
+  kind        = "zone"
+  phase       = "http_request_dynamic_redirect"
+
+  rules = [
+    {
+      ref         = "blog_root_to_ko"
+      description = "Redirect blog root to Korean homepage"
+      expression  = "(http.host eq \"blog.${var.domain}\" and http.request.uri.path eq \"/\")"
+
+      action  = "redirect"
+      enabled = true
+
+      action_parameters = {
+        from_value = {
+          status_code           = 301
+          preserve_query_string = true
+
+          target_url = {
+            value = "https://blog.${var.domain}/ko/"
+          }
+        }
+      }
+    }
+  ]
 }
 
 resource "cloudflare_r2_bucket" "public_bucket" {
